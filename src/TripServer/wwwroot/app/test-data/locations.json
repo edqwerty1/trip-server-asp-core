@@ -1,0 +1,37 @@
+{
+    "locations": [{
+    "id": "f6775c95-3e75-4e7a-94de-78b1a8084644",
+    "name": "4 Chapelside",
+    "address": {
+        "address1": "London, England",
+        "address2": "1 A Lane",
+        "address3": "1 A Lane",
+        "address4": "1 A Lane",
+        "address5": "1 A Lane",
+        "postCode": "DE21 7JQ"
+    },
+    "price": 1650.00,
+    "imageUrl": "https://acarroll2myking.files.wordpress.com/2014/07/sunshine_145918109.jpg",
+    "nights": 2,
+    "upvotes": 0,
+    "downvotes": 0
+},
+{
+    "id": "c9cfa319-e26b-4774-a7f7-bd249d6e93a0",
+    "name": "Sunney Dew Park",
+    "address": {
+        "address1": "Birmingham, England",
+        "address2": "1 A Lane",
+        "address3": "1 A Lane",
+        "address4": "1 A Lane",
+        "address5": "1 A Lane",
+        "postCode": "DE1 1JQ"
+    },
+    "price": 2000.00,
+    "imageUrl": "https://acarroll2myking.files.wordpress.com/2014/07/sunshine_145918109.jpg",
+    "nights": 2,
+    "upvotes": 0,
+    "downvotes": 0
+}
+    ]
+}

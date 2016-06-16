@@ -1,0 +1,13 @@
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="{{location.imageUrl}}" alt="...">
+      <div class="caption">
+          <vote [location]="location"></vote>
+        <h3>{{location.name}}</h3>
+        <p><label>Rooms:</label> <span class="pull-right">{{location.nights}}</span></p>
+        <p><label>Price:</label> <span class="pull-right">{{location.price | currency:'GBP':true}}</span></p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>

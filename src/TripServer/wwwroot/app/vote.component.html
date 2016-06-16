@@ -1,0 +1,5 @@
+<div class="btn-group-vertical" role="group">
+    <button type="button" class="btn btn-default" (click)="upVote()" [class.active]="upVoted">Upvote</button>
+    <span class="btn btn-default disabled cursor-fix">{{score}}</span>
+    <button type="button" class="btn btn-default" (click)="downVote()"[class.active]="downVoted">Downvote</button>
+</div>
