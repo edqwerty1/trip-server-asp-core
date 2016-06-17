@@ -200,6 +200,8 @@ C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\20160609141244_MyFi
 C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\20160609141244_MyFirstMigration.Designer.cs
 C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\20160615150955_address.cs
 C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\20160615150955_address.Designer.cs
+C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\20160617151856_LocationFKs.cs
+C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\20160617151856_LocationFKs.Designer.cs
 C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Migrations\TripContextModelSnapshot.cs
 C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Models\Models.cs
 C:\dev2\dotnet-core-rc2\TripServer\src\TripServer\Security\Session.cs

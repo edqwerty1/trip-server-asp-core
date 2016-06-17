@@ -13,6 +13,17 @@ namespace TripServer.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Location>()
+                .HasMany(e => e.UpVotes)
+                .WithOne(p => p.UpVoteLocation);
+            modelBuilder.Entity<Location>()
+                .HasMany(e => e.DownVotes)
+                .WithOne(p => p.DownVoteLocation);
+        }
+        
     }
 
     public class User
@@ -24,6 +35,9 @@ namespace TripServer.Models
         [NotMapped]
         public Guid Token { get; set; }
 
+        public Location UpVoteLocation { get; set; }
+        public Location DownVoteLocation { get; set; }
+
     }
 
     public class Location
@@ -34,8 +48,8 @@ namespace TripServer.Models
         public double Price { get; set; }
         public string ImageUrl { get; set; }
         public int Nights { get; set; }
-        public ICollection<User> UpVotes { get; set; }
-        public ICollection<User> DownVotes { get; set; }
+        public List<User> UpVotes { get; set; }
+        public List<User> DownVotes { get; set; }
     }
 
     public class Address

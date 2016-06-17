@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,10 @@ namespace TripServer.Controllers
 
         public async Task<IActionResult>  Locations()
         {
-            var locations = await _context.Locations.ToListAsync();
+            var locations = await _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).ToListAsync();
             var locationDtos = locations.Select(t => new LocationDto
             {
+                Id = t.Id,
                 Address = t.Address?? new Address(),
                 ImageUrl = t.ImageUrl,
                 Name = t.Name,
@@ -62,10 +64,68 @@ namespace TripServer.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+        public class Vote
+        {
+            public Guid UserId { get; set; }
+        }
+
+        [Route("location/{locationId:guid}/upvote")]
+        public IActionResult UpVote(Guid locationId, [FromBody]Vote voteDto)
+        {
+            var location = _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).FirstOrDefault(t => t.Id == locationId);
+
+            if (location == null)
+                return NotFound($"Location Id [{locationId}] not found");
+
+            var user = _context.Users.FirstOrDefault(t => t.Id == voteDto.UserId);
+            if (user == null)
+                return NotFound($"User Id [{voteDto.UserId}] not found");
+
+            if(location.UpVotes == null)
+                location.UpVotes = new List<User>();
+
+            if (location.UpVotes.Contains(user))
+                location.UpVotes.Remove(user);
+            else
+            {
+                location.UpVotes.Add(user);
+            }
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [Route("location/{locationId:guid}/downvote")]
+        public IActionResult DownVote(Guid locationId, [FromBody]Vote voteDto)
+        {
+            var location = _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).FirstOrDefault(t => t.Id == locationId);
+
+            if (location == null)
+                return NotFound($"Location Id [{locationId}] not found");
+
+            var user = _context.Users.FirstOrDefault(t => t.Id == voteDto.UserId);
+            if (user == null)
+                return NotFound($"User Id [{voteDto.UserId}] not found");
+
+            if (location.DownVotes == null)
+                location.DownVotes = new List<User>();
+
+            if (location.DownVotes.Contains(user))
+                location.DownVotes.Remove(user);
+            else
+            {
+                location.DownVotes.Add(user);
+            }
+
+            
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 
     public class LocationDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public Address Address { get; set; }
         public double Price { get; set; }

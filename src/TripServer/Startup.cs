@@ -23,6 +23,7 @@ namespace TripServer
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;";
+           // var connection = @"Server=localhost;Database=TripServer;Trusted_Connection=True;";
             services.AddDbContext<TripContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
             services.Configure<MvcOptions>(options =>

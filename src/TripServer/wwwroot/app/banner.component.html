@@ -1,14 +1,19 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" [ngClass]="{shrink: shrink}" (window:scroll)="onScroll()">
   <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+    <div class="">
+      <ul class="nav navbar-nav navbar-left">
+        <li>
+          <a class="navbar-brand" href="#">
         Trip Planner!
       </a>
+        </li>
+      </ul>
     </div>
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <div class="nav navbar-nav navbar-right">
-        <login-button></login-button>
-        <register-button></register-button>
+          <login-button></login-button>
+          <register-button></register-button>
       </div>
     </div>
   </div>
