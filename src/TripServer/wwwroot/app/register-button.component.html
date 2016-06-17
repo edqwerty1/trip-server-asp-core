@@ -1,0 +1,2 @@
+<button *ngIf="showButton" type="button" class="btn btn-default navbar-btn" (click)="openModal()">Register</button>
+<register-modal (open)="modalOpen = true" (close)="modalOpen = false" *ngIf="modalOpen"></register-modal>
