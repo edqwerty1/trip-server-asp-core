@@ -66,6 +66,8 @@
 -r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.CommandLineUtils\1.0.0-rc2-final\lib\netstandard1.3\Microsoft.Extensions.CommandLineUtils.dll"
 -r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.Configuration\1.0.0-rc2-final\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll"
 -r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.Configuration.Abstractions\1.0.0-rc2-final\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll"
+-r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.Configuration.FileExtensions\1.0.0-rc2-final\lib\netstandard1.3\Microsoft.Extensions.Configuration.FileExtensions.dll"
+-r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.Configuration.Json\1.0.0-rc2-final\lib\netstandard1.3\Microsoft.Extensions.Configuration.Json.dll"
 -r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.DependencyInjection\1.0.0-rc2-final\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll"
 -r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.DependencyInjection.Abstractions\1.0.0-rc2-final\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
 -r:"C:\Users\Ed\.nuget\packages\Microsoft.Extensions.DependencyModel\1.0.0-rc2-final\lib\netstandard1.5\Microsoft.Extensions.DependencyModel.dll"

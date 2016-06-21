@@ -13,6 +13,8 @@ using TripServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace TripServer
 {
@@ -22,7 +24,12 @@ namespace TripServer
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;";
+            var config = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+            var connection = config.GetConnectionString("DefaultConnection");
            // var connection = @"Server=localhost;Database=TripServer;Trusted_Connection=True;";
             services.AddDbContext<TripContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
