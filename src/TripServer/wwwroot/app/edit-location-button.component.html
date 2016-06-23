@@ -1,0 +1,4 @@
+<button *ngIf="showButton" type="button" class="btn btn-default" (click)="openModal()">
+    Edit
+</button>
+<edit-location-modal [location]="location" (open)="modalOpen = true" (close)="modalOpen = false" *ngIf="modalOpen"></edit-location-modal>

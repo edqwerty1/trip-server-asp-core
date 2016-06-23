@@ -22,7 +22,7 @@ namespace TripServer.Controllers
 
         public async Task<IActionResult>  Locations()
         {
-            var locations = await _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).ToListAsync();
+            var locations = await _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).Include(t => t.Address).ToListAsync();
             var locationDtos = locations.Select(t => new LocationDto
             {
                 Id = t.Id,
@@ -37,22 +37,46 @@ namespace TripServer.Controllers
             return Ok(locationDtos);
         }
 
-        [HttpPost]
-        public IActionResult Location(Guid? token, [FromBody]LocationDto locationDto)
+        [HttpPut]
+        public IActionResult Location([FromBody]LocationDto locationDto)
         {
-            if (token == null)
-                return Unauthorized();
-            if (!Session.TokenDictionary.ContainsKey(token.Value))
+            var tokenString = Request.Headers["token"];
+
+            if (String.IsNullOrWhiteSpace(tokenString))
                 return Unauthorized();
 
-            var location = new Location
+            Guid token;
+            Guid.TryParse(tokenString, out token);
+
+            if (token == null)
+                return Unauthorized();
+
+            if (!Session.TokenDictionary.ContainsKey(token))
+                return Unauthorized();
+
+            
+            var location = locationDto.Id == null ? 
+                             new Location() :
+                            _context.Locations.Include(t => t.Address).FirstOrDefault(t => t.Id == locationDto.Id.Value);
+
+            if (location == null)
+                return NotFound("Location matching Id Not found");
+
+            if (location.Address == null)
+                location.Address = locationDto.Address ?? new Address();
+            else
             {
-                Address = locationDto.Address?? new Address(),
-                ImageUrl = locationDto.ImageUrl,
-                Name = locationDto.Name,
-                Price = locationDto.Price,
-                Nights = locationDto.Nights
-            };
+                location.Address.Address1 = locationDto.Address.Address1;
+                location.Address.Address2 = locationDto.Address.Address2;
+                location.Address.Address3 = locationDto.Address.Address3;
+                location.Address.Address4 = locationDto.Address.Address4;
+                location.Address.Address5 = locationDto.Address.Address5;
+                location.Address.PostCode = locationDto.Address.PostCode;
+            }
+            location.ImageUrl = locationDto.ImageUrl;
+            location.Name = locationDto.Name;
+            location.Price = locationDto.Price;
+            location.Nights = locationDto.Nights;
 
             if (location.Id == Guid.Empty)
                 location.Id = Guid.NewGuid();
@@ -60,7 +84,8 @@ namespace TripServer.Controllers
             if (location.Address?.Id == Guid.Empty)
                 location.Address.Id = Guid.NewGuid();
 
-            _context.Locations.Add(location);
+            if (locationDto.Id == null)
+                _context.Locations.Add(location);
             _context.SaveChanges();
             return Ok();
         }
@@ -73,6 +98,20 @@ namespace TripServer.Controllers
         [Route("location/{locationId:guid}/upvote")]
         public IActionResult UpVote(Guid locationId, [FromBody]Vote voteDto)
         {
+            var tokenString = Request.Headers["token"];
+
+            if (String.IsNullOrWhiteSpace(tokenString))
+                return Unauthorized();
+
+            Guid token;
+            Guid.TryParse(tokenString, out token);
+
+            if (token == null)
+                return Unauthorized();
+
+            if (!Session.TokenDictionary.ContainsKey(token))
+                return Unauthorized();
+
             var location = _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).FirstOrDefault(t => t.Id == locationId);
 
             if (location == null)
@@ -98,6 +137,20 @@ namespace TripServer.Controllers
         [Route("location/{locationId:guid}/downvote")]
         public IActionResult DownVote(Guid locationId, [FromBody]Vote voteDto)
         {
+            var tokenString = Request.Headers["token"];
+
+            if (String.IsNullOrWhiteSpace(tokenString))
+                return Unauthorized();
+
+            Guid token;
+            Guid.TryParse(tokenString, out token);
+
+            if (token == null)
+                return Unauthorized();
+
+            if (!Session.TokenDictionary.ContainsKey(token))
+                return Unauthorized();
+
             var location = _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).FirstOrDefault(t => t.Id == locationId);
 
             if (location == null)
@@ -125,7 +178,7 @@ namespace TripServer.Controllers
 
     public class LocationDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public Address Address { get; set; }
         public double Price { get; set; }

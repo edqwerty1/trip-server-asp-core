@@ -1,0 +1,69 @@
+<div id="edit-location-button-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Location</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" [ngFormModel]="editLocationFormModel" (ngSubmit)="onSubmit()" #editLocationForm="ngForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input autofocus type="text" ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="Name">
+                        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                            Name is required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" #price="ngForm" ngControl="price" class="form-control" id="price" placeholder="2000.08">
+                        <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+                            Price is required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageUrl">Image Url</label>
+                        <input type="text" #imageUrl="ngForm" ngControl="imageUrl" class="form-control" id="imageUrl">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nights">Nights</label>
+                        <input type="number" #nights="ngForm" ngControl="nights" class="form-control" id="nights" placeholder="2">
+                        <div [hidden]="nights.valid || nights.pristine" class="alert alert-danger">
+                            Number of nights are required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address1">Address</label>
+                        <input type="text" #address1="ngForm" ngControl="address1" class="form-control" id="address1" placeholder="">
+                        <div [hidden]="address1.valid || address1.pristine" class="alert alert-danger">
+                            First Line of Address is required
+                        </div>
+                        <input type="text" #address2="ngForm" ngControl="address2" class="form-control" id="address2" placeholder="">
+                        <input type="text" #address3="ngForm" ngControl="address3" class="form-control" id="address3" placeholder="">
+                        <input type="text" #address4="ngForm" ngControl="address4" class="form-control" id="address4" placeholder="">
+                        <input type="text" #address5="ngForm" ngControl="address5" class="form-control" id="address5" placeholder="">
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="postCode">Post Code</label>
+                        <input type="text" #postCode="ngForm" ngControl="postCode" class="form-control" id="postCode" placeholder="">
+                        <div [hidden]="postCode.valid || postCode.pristine" class="alert alert-danger">
+                            Post Code is required
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary" (click)="editLocationForm.ngSubmit.emit()">Edit</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+
+    <!-- /.modal-dialog -->
+</div>
+<div id="edit-location-button-modal-overlay"></div>
